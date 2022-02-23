@@ -14,7 +14,7 @@
         <select name="id_nurse">
             <?php
             include 'conn.php';
-            $stmt = $dbh->query('SELECT id_nurse FROM nurse;');
+            $stmt = $dbh->query('SELECT id_nurse FROM nurse ORDER BY id_nurse;');
             while ($row = $stmt->fetchColumn())
                 echo "<option>$row</option>"
             ?>
@@ -78,6 +78,33 @@
     </p>
 </form>
 
+<form method="post" action="add_ward.php">
+    <p> Добавить палату с именем:
+        <input type="text" name="ward_name">
+        <input type="submit">
+    </p>
+</form>
+
+<form method="post" action="add_nurse_to_ward.php">
+    <p> Назначить медсестру №
+        <select name="id_nurse">
+            <?php
+            include 'conn.php';
+            $stmt = $dbh->query('SELECT id_nurse FROM nurse;');
+            while ($row = $stmt->fetchColumn())
+                echo "<option>$row</option>"
+            ?>
+        </select> в палату №
+        <select name="id_ward">
+            <?php
+            include 'conn.php';
+            $stmt = $dbh->query('SELECT id_ward FROM ward;');
+            while ($row = $stmt->fetchColumn())
+                echo "<option>$row</option>"
+            ?>
+        </select>
+        <input type="submit">
+</form>
 
 </body>
 </html>

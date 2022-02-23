@@ -1,5 +1,5 @@
 <?php
-// Перечень палат, в которых дежурит медсестра №
+
 include 'conn.php';
 if(isset($_POST['nurse_name'],$_POST['department'],$_POST['shift'],$_POST['date'])) {
 

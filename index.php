@@ -53,5 +53,31 @@
 
 <h3> Добавить </h3>
 
+<form method="post" action="add_nurse.php">
+    <p> Добавить медсестру с именем:
+        <input type="text" name="nurse_name"> в
+        <select name="department">
+            <?php
+            include 'conn.php';
+            $stmt = $dbh->query('SELECT DISTINCT department FROM nurse;');
+            while ($row = $stmt->fetchColumn())
+                echo "<option>$row</option>"
+            ?>
+        </select> отдел
+        на
+        <select name="shift">
+            <?php
+            include 'conn.php';
+            $stmt = $dbh->query('SELECT DISTINCT shift FROM nurse;');
+            while ($row = $stmt->fetchColumn())
+                echo "<option>$row</option>"
+            ?>
+        </select> смену за дату
+        <input type="date" name="date">
+        <input type="submit">
+    </p>
+</form>
+
+
 </body>
 </html>

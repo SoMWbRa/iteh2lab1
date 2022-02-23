@@ -9,9 +9,9 @@
 </head>
 <body>
 <h3> Запросы </h3>
-<form action="fid_ward.php">
+<form action="fid_ward.php" method="get">
     <p> Перечень палат, в которых дежурит медсестра №
-        <select>
+        <select name="id_nurse">
             <?php
             include 'conn.php';
             $stmt = $dbh->query('SELECT id_nurse FROM nurse;');
@@ -25,7 +25,7 @@
 
 <form action="id_nurse.php">
     <p> Медсестры отделения №
-        <select>
+        <select name="department">
             <?php
             include 'conn.php';
             $stmt = $dbh->query('SELECT DISTINCT department FROM nurse;');
@@ -39,7 +39,7 @@
 
 <form action="name_shift.php">
     <p> Дежурства (в любых палатах) в смену:
-        <select>
+        <select name="shift">
             <?php
             include 'conn.php';
             $stmt = $dbh->query('SELECT DISTINCT shift FROM nurse;');

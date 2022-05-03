@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <script src=ajax.js></script>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -9,102 +10,46 @@
 </head>
 <body>
 <h3> Запросы </h3>
-<form action="fid_ward.php" method="get">
-    <p> Перечень палат, в которых дежурит медсестра №
-        <select name="id_nurse">
-            <?php
-            include 'conn.php';
-            $stmt = $dbh->query('SELECT id_nurse FROM nurse ORDER BY id_nurse;');
-            while ($row = $stmt->fetchColumn())
-                echo "<option>$row</option>"
-            ?>
-        </select>
-        <input type="submit">
-    </p>
-</form>
+<p> Перечень палат, в которых дежурит медсестра №
+    <select name="id_nurse" id=0>
+        <?php
+        include 'conn.php';
+        $stmt = $dbh->query('SELECT id_nurse FROM nurse ORDER BY id_nurse;');
+        while ($row = $stmt->fetchColumn())
+            echo "<option>$row</option>"
+        ?>
+    </select>
+    <button type="button" onclick="load_fid_ward()">Change Content</button>
+</p>
 
-<form action="id_nurse.php">
-    <p> Медсестры отделения №
-        <select name="department">
-            <?php
-            include 'conn.php';
-            $stmt = $dbh->query('SELECT DISTINCT department FROM nurse;');
-            while ($row = $stmt->fetchColumn())
-                echo "<option>$row</option>"
-            ?>
-        </select>
-        <input type="submit">
-    </p>
-</form>
+<p> Медсестры отделения №
+    <select name="department" id=1>
+        <?php
+        include 'conn.php';
+        $stmt = $dbh->query('SELECT DISTINCT department FROM nurse;');
+        while ($row = $stmt->fetchColumn())
+            echo "<option>$row</option>"
+        ?>
+    </select>
+    <button type="button" onclick="load_id_nurse()">Change Content</button>
+</p>
 
-<form action="name_shift.php">
-    <p> Дежурства (в любых палатах) в смену:
-        <select name="shift">
-            <?php
-            include 'conn.php';
-            $stmt = $dbh->query('SELECT DISTINCT shift FROM nurse;');
-            while ($row = $stmt->fetchColumn())
-                echo "<option>$row</option>"
-            ?>
-        </select>
-        <input type="submit">
-    </p>
-</form>
+<p> Дежурства (в любых палатах) в смену:
+    <select name="shift" id=2>
+        <?php
+        include 'conn.php';
+        $stmt = $dbh->query('SELECT DISTINCT shift FROM nurse;');
+        while ($row = $stmt->fetchColumn())
+            echo "<option>$row</option>"
+        ?>
+    </select>
+    <button type="button" onclick="load_name_shift()">Change Content</button>
 
-<h3> Добавить </h3>
+</p>
+<h>Результат</h>
 
-<form method="post" action="add_nurse.php">
-    <p> Добавить медсестру с именем:
-        <input type="text" name="nurse_name"> в
-        <select name="department">
-            <?php
-            include 'conn.php';
-            $stmt = $dbh->query('SELECT DISTINCT department FROM nurse;');
-            while ($row = $stmt->fetchColumn())
-                echo "<option>$row</option>"
-            ?>
-        </select> отдел
-        на
-        <select name="shift">
-            <?php
-            include 'conn.php';
-            $stmt = $dbh->query('SELECT DISTINCT shift FROM nurse;');
-            while ($row = $stmt->fetchColumn())
-                echo "<option>$row</option>"
-            ?>
-        </select> смену за дату
-        <input type="date" name="date">
-        <input type="submit">
-    </p>
-</form>
-
-<form method="post" action="add_ward.php">
-    <p> Добавить палату с именем:
-        <input type="text" name="ward_name">
-        <input type="submit">
-    </p>
-</form>
-
-<form method="post" action="add_nurse_to_ward.php">
-    <p> Назначить медсестру №
-        <select name="id_nurse">
-            <?php
-            include 'conn.php';
-            $stmt = $dbh->query('SELECT id_nurse FROM nurse;');
-            while ($row = $stmt->fetchColumn())
-                echo "<option>$row</option>"
-            ?>
-        </select> в палату №
-        <select name="id_ward">
-            <?php
-            include 'conn.php';
-            $stmt = $dbh->query('SELECT id_ward FROM ward;');
-            while ($row = $stmt->fetchColumn())
-                echo "<option>$row</option>"
-            ?>
-        </select>
-        <input type="submit">
-</form>
-
+<div id="demo">
+    <h2>Let AJAX change this text</h2>
+</div>
 </body>
 </html>
